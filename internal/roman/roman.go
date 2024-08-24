@@ -33,10 +33,6 @@ func FromInt(number int) (string, error) {
 		{1, "I"},
 	}
 
-	if number > 10 {
-		return "", ErrMoreThen10
-	}
-
 	if number < 1 {
 		return "", ErrLessThen1
 	}
@@ -97,10 +93,6 @@ func FromRoman(s string) (int, error) {
 		} else {
 			sum += charMap[s[i]]
 		}
-	}
-
-	if sum > 10 {
-		return 0, ErrMoreThen10
 	}
 
 	if sum < 1 {
