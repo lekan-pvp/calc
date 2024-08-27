@@ -12,8 +12,10 @@ import (
 )
 
 var (
-	ErrConvertInt       = errors.New("convert int failure")
-	ErrNumberOfExprUnit = errors.New("the number of unit exression must be 3")
+	ErrConvertInt         = errors.New("convert int failure")
+	ErrNumberOfExprUnit   = errors.New("the number of unit exression must be 3")
+	ErrNotEqualNumberType = errors.New("the type of operands is not equal")
+	ErrMustBeGraterThen0  = errors.New("operands must be grater then 0")
 )
 
 func Parse(s string) (interface{}, error) {
@@ -21,6 +23,10 @@ func Parse(s string) (interface{}, error) {
 
 	if len(opList) != 3 {
 		return nil, ErrNumberOfExprUnit
+	}
+
+	if checkinput.IsRoman(opList[0]) != checkinput.IsRoman(opList[2]) {
+		return nil, ErrNotEqualNumberType
 	}
 
 	if checkinput.IsRoman(opList[0]) {
@@ -47,6 +53,10 @@ func Parse(s string) (interface{}, error) {
 	b, err := strconv.Atoi(opList[2])
 	if err != nil {
 		return nil, ErrConvertInt
+	}
+
+	if a < 1 || b < 1 {
+		return nil, ErrMustBeGraterThen0
 	}
 
 	return &arabiccalc.ArabNums{
